@@ -4,12 +4,12 @@ import {
   File01Icon,
   FolderOpenIcon,
   CloudUploadIcon,
-  UserGroupIcon,
-  Download01Icon,
   GridViewIcon
 } from '@hugeicons/core-free-icons';
 import { archiveService, type ArchivedDocument } from '../../services/archiveService';
 import { Link } from 'react-router-dom';
+import PageHeader from '../../components/UI/PageHeader';
+import StatCard from '../../components/UI/StatCard';
 
 const Dashboard = () => {
   const [recentDocs, setRecentDocs] = useState<ArchivedDocument[]>([]);
@@ -18,17 +18,14 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Get stats from all docs
     const unsubscribeAll = archiveService.getDocuments((docs) => {
       setTotalCount(docs.length);
     });
 
-    // Get categories count
     const unsubscribeCats = archiveService.getCategories((cats) => {
       setCategoryCount(cats.length);
     });
 
-    // Get 5 most recent
     const unsubscribeRecent = archiveService.getRecentDocuments(5, (docs) => {
       setRecentDocs(docs);
       setLoading(false);
@@ -61,128 +58,78 @@ const Dashboard = () => {
 
   return (
     <div className="flex-1 overflow-y-auto p-8">
-      <div className="flex items-center justify-between mb-8">
-        <div className="flex items-center gap-4">
-          <div className="w-16 h-16 bg-primary-light rounded-large flex items-center justify-center">
-            <div className="bg-primary-soft p-2 rounded-base text-primary flex items-center justify-center">
-              <HugeiconsIcon icon={GridViewIcon} size={32} />
-            </div>
-          </div>
-          <div>
-            <h1 className="text-2xl font-bold">System Overview</h1>
-            <p className="text-gray-400 text-sm mt-0.5">Track your archival metrics and recent uploads</p>
-          </div>
-        </div>
-        <div className="flex items-center gap-3">
-          <button className="btn-secondary">
-            <HugeiconsIcon icon={Download01Icon} size={16} className="text-gray-400" />
-            Export Stats
-          </button>
+      <PageHeader 
+        icon={GridViewIcon}
+        title="System Overview"
+        subtitle="Track your archival metrics and recent uploads"
+        actions={
           <Link to="/uploads" className="btn-primary">
             <HugeiconsIcon icon={CloudUploadIcon} size={16} />
             Upload Document
           </Link>
-        </div>
-      </div>
+        }
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        {/* Stat Card 1 */}
-        <div className="bg-white p-6 rounded-large border border-gray-100 shadow-sm">
-          <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-base flex items-center justify-center mb-4">
-            <HugeiconsIcon icon={File01Icon} size={24} />
-          </div>
-          <p className="text-gray-400 text-sm font-medium">Total Documents</p>
-          <p className="text-2xl font-bold mt-1">{loading ? '...' : totalCount}</p>
-          <p className="text-xs text-emerald-600 font-bold mt-2">Active Repository</p>
-        </div>
-
-        {/* Stat Card 2 */}
-        <div className="bg-white p-6 rounded-large border border-gray-100 shadow-sm">
-          <div className="w-12 h-12 bg-amber-50 text-amber-600 rounded-base flex items-center justify-center mb-4">
-            <HugeiconsIcon icon={FolderOpenIcon} size={24} />
-          </div>
-          <p className="text-gray-400 text-sm font-medium">Categories</p>
-          <p className="text-2xl font-bold mt-1">{loading ? '...' : categoryCount}</p>
-          <p className="text-xs text-gray-400 font-medium mt-2">Defined units</p>
-        </div>
-
-        {/* Stat Card 3 */}
-        <div className="bg-white p-6 rounded-large border border-gray-100 shadow-sm">
-          <div className="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-base flex items-center justify-center mb-4">
-            <HugeiconsIcon icon={CloudUploadIcon} size={24} />
-          </div>
-          <p className="text-gray-400 text-sm font-medium">Cloud Storage</p>
-          <p className="text-2xl font-bold mt-1">Connected</p>
-          <p className="text-xs text-emerald-600 font-bold mt-2">Cloudinary Active</p>
-        </div>
-
-        {/* Stat Card 4 */}
-        <div className="bg-white p-6 rounded-large border border-gray-100 shadow-sm">
-          <div className="w-12 h-12 bg-purple-50 text-purple-600 rounded-base flex items-center justify-center mb-4">
-            <HugeiconsIcon icon={UserGroupIcon} size={24} />
-          </div>
-          <p className="text-gray-400 text-sm font-medium">System Admin</p>
-          <p className="text-2xl font-bold mt-1">Active</p>
-          <p className="text-xs text-amber-600 font-bold mt-2">Secure Session</p>
-        </div>
+        <StatCard 
+          icon={File01Icon}
+          iconBg="bg-blue-50"
+          iconColor="text-blue-600"
+          label="Total Documents"
+          value={loading ? '...' : totalCount}
+        />
+        <StatCard 
+          icon={FolderOpenIcon}
+          iconBg="bg-amber-50"
+          iconColor="text-amber-600"
+          label="Categories"
+          value={loading ? '...' : categoryCount}
+        />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 bg-white rounded-large border border-gray-100 shadow-sm overflow-hidden">
-          <div className="px-6 py-4 border-b border-gray-50 flex items-center justify-between">
-            <h2 className="font-bold text-gray-900">Recent Activity</h2>
-            <Link to="/documents" className="text-primary text-sm font-bold">View All</Link>
-          </div>
-          <div className="p-0">
-             {loading ? (
-               <div className="h-64 flex items-center justify-center">
-                 <div className="w-8 h-8 border-2 border-primary/20 border-t-primary rounded-full animate-spin"></div>
-               </div>
-             ) : recentDocs.length === 0 ? (
-               <div className="h-64 flex flex-col items-center justify-center text-center px-6">
-                 <p className="text-gray-400 text-sm font-medium">No recent activity found.</p>
-               </div>
-             ) : (
-               <table className="w-full text-left border-collapse">
-                  <thead>
-                    <tr className="bg-gray-50/30">
-                      <th className="px-6 py-3 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Filename</th>
-                      <th className="px-6 py-3 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Size</th>
-                      <th className="px-6 py-3 text-[10px] font-bold text-gray-400 uppercase tracking-widest text-right">Date</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-50">
-                    {recentDocs.map(doc => (
-                      <tr key={doc.id} className="hover:bg-gray-50/50 transition-colors cursor-pointer">
-                        <td className="px-6 py-4">
-                           <div className="flex items-center gap-3">
-                             <div className={`p-2 rounded-lg ${
-                                doc.format === 'pdf' ? 'bg-red-50 text-red-500' : 'bg-blue-50 text-blue-500'
-                             }`}>
-                               <HugeiconsIcon icon={File01Icon} size={16} />
-                             </div>
-                             <span className="text-sm font-semibold truncate max-w-[200px]">{doc.name}</span>
-                           </div>
-                        </td>
-                        <td className="px-6 py-4 text-sm text-gray-500">{formatSize(doc.size)}</td>
-                        <td className="px-6 py-4 text-sm text-gray-500 text-right">{getTimeAgo(doc.uploadDate)}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-               </table>
-             )}
-          </div>
+      <div className="bg-white rounded-large border border-gray-100 shadow-sm overflow-hidden">
+        <div className="px-6 py-4 border-b border-gray-50 flex items-center justify-between">
+          <h2 className="font-bold text-gray-900">Recent Activity</h2>
+          <Link to="/documents" className="text-primary text-sm font-bold">View All</Link>
         </div>
-        
-        <div className="bg-white rounded-large border border-gray-100 shadow-sm p-6">
-          <h2 className="font-bold text-gray-900 mb-6">Archive Status</h2>
-          <div className="flex flex-col items-center justify-center h-64 border-2 border-dashed border-gray-100 rounded-large">
-             <div className="w-32 h-32 rounded-full border-8 border-primary border-t-gray-100 flex items-center justify-center">
-                <span className="text-2xl font-black text-primary">Live</span>
+        <div className="p-0">
+           {loading ? (
+             <div className="h-64 flex items-center justify-center">
+               <div className="w-8 h-8 border-2 border-primary/20 border-t-primary rounded-full animate-spin"></div>
              </div>
-             <p className="mt-4 text-sm font-bold text-gray-900">Database Connected</p>
-             <p className="text-xs text-gray-400 mt-1">Firebase Realtime Sync Active</p>
-          </div>
+           ) : recentDocs.length === 0 ? (
+             <div className="h-64 flex flex-col items-center justify-center text-center px-6">
+               <p className="text-gray-400 text-sm font-medium">No recent activity found.</p>
+             </div>
+           ) : (
+             <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="bg-gray-50/30">
+                    <th className="px-6 py-3 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Filename</th>
+                    <th className="px-6 py-3 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Size</th>
+                    <th className="px-6 py-3 text-[10px] font-bold text-gray-400 uppercase tracking-widest text-right">Date</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-50">
+                  {recentDocs.map(doc => (
+                    <tr key={doc.id} className="hover:bg-gray-50/50 transition-colors cursor-pointer">
+                      <td className="px-6 py-4">
+                         <div className="flex items-center gap-3">
+                           <div className={`p-2 rounded-lg ${
+                              doc.format === 'pdf' ? 'bg-red-50 text-red-500' : 'bg-blue-50 text-blue-500'
+                           }`}>
+                             <HugeiconsIcon icon={File01Icon} size={16} />
+                           </div>
+                           <span className="text-sm font-semibold truncate max-w-[200px]">{doc.name}</span>
+                         </div>
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-500">{formatSize(doc.size)}</td>
+                      <td className="px-6 py-4 text-sm text-gray-500 text-right">{getTimeAgo(doc.uploadDate)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+             </table>
+           )}
         </div>
       </div>
     </div>

@@ -3,12 +3,13 @@ import { HugeiconsIcon } from '@hugeicons/react';
 import {
   CloudUploadIcon,
   Tick01Icon,
-  InformationCircleIcon,
   Delete02Icon,
   FolderOpenIcon
 } from '@hugeicons/core-free-icons';
 import { CLOUDINARY_UPLOAD_URL, cloudinaryConfig } from '../../lib/cloudinary';
 import { archiveService, type DocumentCategory } from '../../services/archiveService';
+import PageHeader from '../../components/UI/PageHeader';
+import EmptyState from '../../components/UI/EmptyState';
 
 const Uploads = () => {
   const [uploading, setUploading] = useState(false);
@@ -49,7 +50,6 @@ const Uploads = () => {
       try {
         setUploading(true);
         
-        // Prepare FormData for Cloudinary
         const formData = new FormData();
         formData.append('file', file);
         formData.append('upload_preset', 'ml_default'); 
@@ -64,7 +64,6 @@ const Uploads = () => {
 
         const result = await response.json();
 
-        // Save metadata to Firebase
         await archiveService.saveDocument({
           name: file.name,
           url: result.secure_url,
@@ -72,11 +71,10 @@ const Uploads = () => {
           format: result.format,
           categoryId: categoryId,
           category: categoryName,
-          security: 'Internal', // Default security
+          security: 'Internal', 
           uploadDate: Date.now(),
         });
 
-        // Update queue status
         setUploadQueue(prev => prev.map(item => 
           item.id === queueId ? { ...item, progress: 100, status: 'completed' } : item
         ));
@@ -97,29 +95,23 @@ const Uploads = () => {
 
   return (
     <div className="flex-1 overflow-y-auto p-8">
-      <div className="flex items-center justify-between mb-8">
-        <div className="flex items-center gap-4">
-          <div className="w-16 h-16 bg-primary-light rounded-large flex items-center justify-center">
-            <div className="bg-primary-soft p-2 rounded-base text-primary flex items-center justify-center">
-              <HugeiconsIcon icon={CloudUploadIcon} size={32} />
-            </div>
-          </div>
-          <div>
-            <h1 className="text-2xl font-bold">Document Upload</h1>
-            <p className="text-gray-400 text-sm mt-0.5">Securely ingest new records into the archive system</p>
-          </div>
-        </div>
-        <div className="flex items-center gap-3">
-          <button className="btn-secondary" onClick={() => setUploadQueue([])}>
-            <HugeiconsIcon icon={Delete02Icon} size={16} className="text-gray-400" />
-            Clear Queue
-          </button>
-          <button className="btn-primary" onClick={() => fileInputRef.current?.click()} disabled={uploading}>
-            <HugeiconsIcon icon={CloudUploadIcon} size={16} />
-            {uploading ? 'Processing...' : 'New Upload'}
-          </button>
-        </div>
-      </div>
+      <PageHeader 
+        icon={CloudUploadIcon}
+        title="Document Upload"
+        subtitle="Securely ingest new records into the archive system"
+        actions={
+          <>
+            <button className="btn-secondary" onClick={() => setUploadQueue([])}>
+              <HugeiconsIcon icon={Delete02Icon} size={16} className="text-gray-400" />
+              Clear Queue
+            </button>
+            <button className="btn-primary" onClick={() => fileInputRef.current?.click()} disabled={uploading}>
+              <HugeiconsIcon icon={CloudUploadIcon} size={16} />
+              {uploading ? 'Processing...' : 'New Upload'}
+            </button>
+          </>
+        }
+      />
 
       <input 
         type="file" 
@@ -129,24 +121,20 @@ const Uploads = () => {
         multiple 
       />
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 space-y-6">
-          {/* Upload Area */}
-          <div 
-            className="bg-white p-20 rounded-large border border-gray-100 shadow-sm flex flex-col items-center justify-center text-center hover:border-primary/30 transition-all cursor-pointer group"
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="lg:col-span-8 space-y-6">
+          <EmptyState 
+            icon={CloudUploadIcon}
+            title="Drag and drop documents here"
+            description="Support for PDF, DOCX, XLSX and high-resolution images up to 50MB per file."
             onClick={() => fileInputRef.current?.click()}
-          >
-            <div className="w-16 h-16 bg-gray-50 text-gray-300 rounded-full flex items-center justify-center mb-4 group-hover:bg-primary-light group-hover:text-primary transition-colors">
-              <HugeiconsIcon icon={CloudUploadIcon} size={32} />
-            </div>
-            <h3 className="text-gray-900 font-bold">Drag and drop documents here</h3>
-            <p className="text-gray-400 text-sm mt-1 max-w-xs">Support for PDF, DOCX, XLSX and high-resolution images up to 50MB per file.</p>
-            <button className="btn-primary mt-6 px-8" disabled={uploading}>
-              {uploading ? 'Uploading...' : 'Browse Files'}
-            </button>
-          </div>
+            action={
+              <button className="btn-primary px-8" disabled={uploading}>
+                {uploading ? 'Uploading...' : 'Browse Files'}
+              </button>
+            }
+          />
 
-          {/* Upload Queue */}
           {uploadQueue.length > 0 && (
             <div className="bg-white rounded-large border border-gray-100 shadow-sm overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-300">
               <div className="px-6 py-4 border-b border-gray-50 flex items-center justify-between">
@@ -185,7 +173,7 @@ const Uploads = () => {
           )}
         </div>
 
-        <div className="space-y-6">
+        <div className="lg:col-span-4 space-y-6">
           <div className="bg-white p-6 rounded-large border border-gray-100 shadow-sm">
             <div className="flex items-center gap-3 mb-4">
                <HugeiconsIcon icon={FolderOpenIcon} size={20} className="text-primary" />
@@ -194,41 +182,13 @@ const Uploads = () => {
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="w-full bg-gray-50 border border-gray-200 rounded-base py-2.5 px-3 text-sm focus:outline-none focus:ring-1 focus:ring-primary appearance-none cursor-pointer"
+              className="w-full bg-gray-50 border border-gray-200 rounded-base py-2.5 px-3 text-sm focus:outline-none focus:ring-1 focus:ring-primary appearance-none cursor-pointer font-medium"
             >
               <option value="" disabled>Select a category...</option>
               {categories.map((cat) => (
                 <option key={cat.id} value={cat.id}>{cat.name}</option>
               ))}
             </select>
-          </div>
-
-          <div className="bg-white p-6 rounded-large border border-gray-100 shadow-sm">
-            <div className="flex items-center gap-3 mb-4 text-amber-600">
-               <HugeiconsIcon icon={InformationCircleIcon} size={20} />
-               <h3 className="font-bold text-gray-900">Archival Guidelines</h3>
-            </div>
-            <ul className="space-y-3 text-sm text-gray-500">
-              <li className="flex gap-2">
-                <span className="w-1.5 h-1.5 bg-primary/40 rounded-full mt-1.5 shrink-0"></span>
-                Ensure all documents have clear, descriptive filenames.
-              </li>
-              <li className="flex gap-2">
-                <span className="w-1.5 h-1.5 bg-primary/40 rounded-full mt-1.5 shrink-0"></span>
-                Standard categorization helps global discovery.
-              </li>
-              <li className="flex gap-2">
-                <span className="w-1.5 h-1.5 bg-primary/40 rounded-full mt-1.5 shrink-0"></span>
-                Assign appropriate security clearance levels.
-              </li>
-            </ul>
-          </div>
-          
-          <div className="bg-primary/5 p-6 rounded-large border border-primary/10">
-            <h4 className="font-bold text-sm text-primary mb-2">Pro Tip</h4>
-            <p className="text-xs text-gray-600 leading-relaxed">
-              You can upload multiple files at once. The system will process each document and securely archive it in your repository.
-            </p>
           </div>
         </div>
       </div>

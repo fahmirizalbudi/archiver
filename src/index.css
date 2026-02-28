@@ -7,17 +7,23 @@
   --color-primary-soft: #FFE9E3;
   --color-surface: #F9FAFB;
   --color-surface-dark: #F3F4F6;
-  --font-sans: "Inter", "sans-serif";
+  --font-sans: "Plus Jakarta Sans", "sans-serif";
   --radius-base: 0.75rem;
   --radius-large: 1rem;
 }
 
+@layer base {
+  body {
+    @apply antialiased tracking-[-0.01em];
+  }
+}
+
 @layer components {
   .sidebar-item-active {
-    @apply bg-surface border-gray-200 text-primary;
+    @apply bg-surface border-gray-200 text-primary font-semibold;
   }
   .sidebar-item {
-    @apply flex items-center gap-3 px-3 py-2.5 rounded-base border border-transparent transition-all duration-200 ease-in-out;
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-base border border-transparent transition-all duration-200 ease-in-out font-medium;
   }
   .tab-active {
     @apply bg-white shadow-sm text-primary font-semibold;

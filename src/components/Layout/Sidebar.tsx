@@ -8,9 +8,7 @@ import {
   CloudUploadIcon,
   Settings01Icon,
   ArrowUpDownIcon,
-  Search01Icon,
-  Logout01Icon,
-  UserIcon
+  Logout01Icon
 } from '@hugeicons/core-free-icons';
 import { authService } from '../../services/authService';
 
@@ -45,19 +43,6 @@ const Sidebar = () => {
       <div className="flex items-center gap-3.5 mb-8">
         <img src="/logo.svg" alt="Archiver Logo" className="w-8 h-8" />
         <span className="text-xl font-bold tracking-tight text-gray-900">Archiver</span>
-      </div>
-
-      {/* Search */}
-      <div className="relative mb-6">
-        <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-          <HugeiconsIcon icon={Search01Icon} size={16} />
-        </div>
-        <input
-          type="text"
-          placeholder="Global search..."
-          className="w-full bg-gray-50 border border-gray-200 rounded-base py-2 pl-10 pr-4 text-sm focus:outline-none focus:ring-1 focus:ring-primary transition-all"
-        />
-        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400">/</span>
       </div>
 
       {/* Nav */}
@@ -121,13 +106,6 @@ const Sidebar = () => {
       <div className="mt-auto relative" ref={menuRef}>
         {showUserMenu && (
           <div className="absolute bottom-full left-0 w-full mb-2 bg-white border border-gray-100 rounded-large shadow-xl shadow-gray-200/50 py-2 animate-in fade-in slide-in-from-bottom-2 duration-200 z-50">
-            <div className="px-4 py-2 border-b border-gray-50 mb-1">
-              <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Account</p>
-            </div>
-            <button className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-gray-600 hover:bg-gray-50 transition-colors">
-              <HugeiconsIcon icon={UserIcon} size={18} />
-              <span className="font-medium">My Profile</span>
-            </button>
             <button 
               onClick={handleLogout}
               className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 transition-colors"
@@ -149,10 +127,10 @@ const Sidebar = () => {
           />
           <div className="flex-1 min-w-0">
             <p className="text-sm font-bold text-gray-900 truncate">
-              {currentUser?.email?.split('@')[0] || 'Vincz Da Alonso'}
+              {currentUser?.email?.split('@')[0] || 'User'}
             </p>
             <p className="text-[10px] font-bold text-gray-400 uppercase tracking-tight truncate">
-              {currentUser?.email || 'admin@archiver.internal'}
+              {currentUser?.email}
             </p>
           </div>
           <HugeiconsIcon icon={ArrowUpDownIcon} size={16} className={`text-gray-400 transition-transform duration-300 ${showUserMenu ? 'rotate-180' : ''}`} />

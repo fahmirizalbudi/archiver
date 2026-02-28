@@ -2,18 +2,15 @@ import { useState, useEffect } from 'react';
 import { HugeiconsIcon } from '@hugeicons/react';
 import {
   Search01Icon,
-  FilterIcon,
-  Sorting05Icon,
   File01Icon,
-  PencilEdit01Icon,
   Delete02Icon,
-  ArrowLeft01Icon,
-  ArrowRight01Icon,
-  Download01Icon,
   CloudUploadIcon
 } from '@hugeicons/core-free-icons';
 import { archiveService, type ArchivedDocument } from '../../services/archiveService';
 import { Link } from 'react-router-dom';
+import PageHeader from '../../components/UI/PageHeader';
+import LoadingSpinner from '../../components/UI/LoadingSpinner';
+import EmptyState from '../../components/UI/EmptyState';
 
 const Documents = () => {
   const [documents, setDocuments] = useState<ArchivedDocument[]>([]);
@@ -53,37 +50,21 @@ const Documents = () => {
 
   return (
     <div className="flex-1 overflow-y-auto p-8">
-      {/* Page Title */}
-      <div className="flex items-center justify-between mb-8">
-        <div className="flex items-center gap-4">
-          <div className="w-16 h-16 bg-primary-light rounded-large flex items-center justify-center">
-            <div className="bg-primary-soft p-2 rounded-base text-primary flex items-center justify-center">
-              <HugeiconsIcon icon={File01Icon} size={32} />
-            </div>
-          </div>
-          <div>
-            <h1 className="text-2xl font-bold">Document Repository</h1>
-            <p className="text-gray-400 text-sm mt-0.5">Access and manage all archived organizational files</p>
-          </div>
-        </div>
-        <div className="flex items-center gap-3">
-          <button className="btn-secondary">
-            <HugeiconsIcon icon={Download01Icon} size={16} className="text-gray-400" />
-            Bulk Export
-          </button>
+      <PageHeader 
+        icon={File01Icon}
+        title="Document Repository"
+        subtitle="Access and manage all archived organizational files"
+        actions={
           <Link to="/uploads" className="btn-primary">
             <HugeiconsIcon icon={CloudUploadIcon} size={16} />
             Add Document
           </Link>
-        </div>
-      </div>
+        }
+      />
 
-      {/* Unified Data Table Container */}
       <div className="bg-white border border-gray-100 rounded-large shadow-sm overflow-hidden flex flex-col min-h-[400px]">
-        {/* Data Table Toolbar */}
         <div className="p-4 border-b border-gray-50 flex items-center justify-between bg-white">
           <div className="flex items-center gap-4 flex-1">
-            {/* Search */}
             <div className="relative w-80 group">
               <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary transition-colors">
                 <HugeiconsIcon icon={Search01Icon} size={16} />
@@ -97,48 +78,30 @@ const Documents = () => {
               />
               <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-bold text-gray-300 border border-gray-200 px-1.5 py-0.5 rounded-md">/</span>
             </div>
-            <div className="h-6 w-px bg-gray-100"></div>
-            {/* Filter Chips */}
-            <div className="flex items-center gap-1 p-1 bg-gray-50 rounded-xl">
-              <button className="px-4 py-1.5 text-xs font-semibold rounded-lg bg-white shadow-sm text-primary">All Files</button>
-              <button className="px-4 py-1.5 text-xs font-medium rounded-lg text-gray-500 hover:bg-white/50 transition-all">Recent</button>
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <button className="btn-secondary py-2 px-3 border-none bg-gray-50 hover:bg-gray-100">
-              <HugeiconsIcon icon={FilterIcon} size={16} />
-              <span className="text-xs">Advanced</span>
-            </button>
-            <button className="btn-secondary py-2 px-3 border-none bg-gray-50 hover:bg-gray-100">
-              <HugeiconsIcon icon={Sorting05Icon} size={16} />
-            </button>
           </div>
         </div>
 
-        {/* Modern Data Table */}
         <div className="overflow-x-auto flex-1 flex flex-col">
           {loading ? (
-            <div className="flex-1 flex items-center justify-center p-20">
-              <div className="w-8 h-8 border-2 border-primary/20 border-t-primary rounded-full animate-spin"></div>
-            </div>
+            <LoadingSpinner />
           ) : filteredDocs.length === 0 ? (
-            <div className="flex flex-col items-center justify-center p-20 text-center">
-              <div className="w-16 h-16 bg-gray-50 text-gray-300 rounded-full flex items-center justify-center mb-4">
-                <HugeiconsIcon icon={File01Icon} size={32} />
-              </div>
-              <h3 className="text-gray-900 font-bold">No documents found</h3>
-              <p className="text-gray-400 text-sm mt-1 max-w-xs">Start by uploading your first document to the archive system.</p>
-              <Link to="/uploads" className="btn-primary mt-6">Upload Now</Link>
-            </div>
+            <EmptyState 
+              icon={File01Icon}
+              title="No documents found"
+              description="Start by uploading your first document to the archive system."
+              action={
+                <Link to="/uploads" className="btn-primary">Upload Now</Link>
+              }
+            />
           ) : (
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="bg-gray-50/30">
-                  <th className="px-6 py-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest border-b border-gray-50">Document Name</th>
-                  <th className="px-6 py-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest border-b border-gray-50">Category</th>
-                  <th className="px-6 py-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest border-b border-gray-50 text-center">Security</th>
-                  <th className="px-6 py-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest border-b border-gray-50">Upload Date</th>
-                  <th className="px-6 py-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest border-b border-gray-50 text-right">Actions</th>
+                  <th className="px-6 py-4 text-[10px] font-extrabold text-gray-400 uppercase tracking-[0.05em] border-b border-gray-50">Document Name</th>
+                  <th className="px-6 py-4 text-[10px] font-extrabold text-gray-400 uppercase tracking-[0.05em] border-b border-gray-50">Category</th>
+                  <th className="px-6 py-4 text-[10px] font-extrabold text-gray-400 uppercase tracking-[0.05em] border-b border-gray-50 text-center">Security</th>
+                  <th className="px-6 py-4 text-[10px] font-extrabold text-gray-400 uppercase tracking-[0.05em] border-b border-gray-50">Upload Date</th>
+                  <th className="px-6 py-4 text-[10px] font-extrabold text-gray-400 uppercase tracking-[0.05em] border-b border-gray-50 text-right">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-50">
@@ -180,9 +143,6 @@ const Documents = () => {
                     </td>
                     <td className="px-6 py-4 text-right">
                       <div className="flex justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <a href={doc.url} target="_blank" rel="noopener noreferrer" className="btn-icon w-8 h-8 border-none hover:bg-gray-100">
-                          <HugeiconsIcon icon={PencilEdit01Icon} size={16} />
-                        </a>
                         <button 
                           onClick={() => handleDelete(doc.id)}
                           className="btn-icon w-8 h-8 border-none hover:bg-red-50 hover:text-red-500"
@@ -197,26 +157,6 @@ const Documents = () => {
             </table>
           )}
         </div>
-
-        {/* Pagination Footer */}
-        {!loading && filteredDocs.length > 0 && (
-          <div className="px-6 py-4 border-t border-gray-50 flex items-center justify-between bg-white shrink-0">
-            <p className="text-sm text-gray-400">
-              Showing <span className="text-gray-900 font-semibold">{filteredDocs.length}</span> of <span className="text-gray-900 font-semibold">{documents.length}</span> files
-            </p>
-            <div className="flex items-center gap-1">
-              <button className="btn-icon w-8 h-8 border-none hover:bg-gray-50 text-gray-400 disabled:opacity-30" disabled>
-                <HugeiconsIcon icon={ArrowLeft01Icon} size={16} />
-              </button>
-              <div className="flex items-center gap-1 px-2">
-                <button className="w-8 h-8 rounded-lg bg-primary/10 text-primary text-xs font-bold">1</button>
-              </div>
-              <button className="btn-icon w-8 h-8 border-none hover:bg-gray-50 text-gray-400 disabled:opacity-30" disabled>
-                <HugeiconsIcon icon={ArrowRight01Icon} size={16} />
-              </button>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );

@@ -5,10 +5,11 @@ import {
   Search01Icon,
   Add02Icon,
   File01Icon,
-  Sorting05Icon,
   Delete02Icon
 } from '@hugeicons/core-free-icons';
 import { archiveService, type DocumentCategory, type ArchivedDocument } from '../../services/archiveService';
+import PageHeader from '../../components/UI/PageHeader';
+import LoadingSpinner from '../../components/UI/LoadingSpinner';
 
 const Categories = () => {
   const [categories, setCategories] = useState<DocumentCategory[]>([]);
@@ -18,7 +19,6 @@ const Categories = () => {
   const [isCreating, setIsCreating] = useState(false);
   const [newCatName, setNewCatName] = useState('');
 
-  // Predefined color themes for new categories
   const colorThemes = [
     'bg-blue-50 text-blue-600 border-blue-100',
     'bg-red-50 text-red-600 border-red-100',
@@ -31,42 +31,20 @@ const Categories = () => {
   ];
 
   useEffect(() => {
-    // Fetch categories
     const unsubscribeCats = archiveService.getCategories((cats) => {
       setCategories(cats);
-      // Only set loading to false if documents are also fetched
     });
 
-    // Fetch documents to calculate counts per category
     const unsubscribeDocs = archiveService.getDocuments((docs) => {
       setDocuments(docs);
       setLoading(false);
     });
 
-    // Setup initial default category if none exist
-    const checkAndCreateDefault = async () => {
-      // Small delay to allow initial fetch to complete
-      setTimeout(async () => {
-        if (categories.length === 0 && !loading) {
-          try {
-            await archiveService.saveCategory({
-              name: 'General Archive',
-              color: colorThemes[0]
-            });
-          } catch (e) {
-            console.error("Failed to create default category", e);
-          }
-        }
-      }, 1000);
-    };
-    
-    checkAndCreateDefault();
-
     return () => {
       unsubscribeCats();
       unsubscribeDocs();
     };
-  }, [categories.length, loading]);
+  }, []);
 
   const handleCreateCategory = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -87,7 +65,7 @@ const Categories = () => {
 
   const handleDeleteCategory = async (id: string, docCount: number) => {
     if (docCount > 0) {
-      alert(`Cannot delete this category because it contains ${docCount} documents. Please move or delete the documents first.`);
+      alert(`Cannot delete this category because it contains ${docCount} documents.`);
       return;
     }
 
@@ -115,39 +93,23 @@ const Categories = () => {
     if (minutes < 60) return `${minutes}m ago`;
     const hours = Math.floor(minutes / 60);
     if (hours < 24) return `${hours}h ago`;
-    const days = Math.floor(hours / 24);
-    if (days < 30) return `${days}d ago`;
     return new Date(timestamp).toLocaleDateString();
   };
 
   return (
     <div className="flex-1 overflow-y-auto p-8 relative">
-      {/* Page Title */}
-      <div className="flex items-center justify-between mb-8">
-        <div className="flex items-center gap-4">
-          <div className="w-16 h-16 bg-primary-light rounded-large flex items-center justify-center">
-            <div className="bg-primary-soft p-2 rounded-base text-primary flex items-center justify-center">
-              <HugeiconsIcon icon={FolderOpenIcon} size={32} />
-            </div>
-          </div>
-          <div>
-            <h1 className="text-2xl font-bold">Document Categories</h1>
-            <p className="text-gray-400 text-sm mt-0.5">Organize and classify your organizational records</p>
-          </div>
-        </div>
-        <div className="flex items-center gap-3">
-          <button className="btn-secondary">
-             <HugeiconsIcon icon={Sorting05Icon} size={16} className="text-gray-400" />
-             Sort Layout
-          </button>
+      <PageHeader 
+        icon={FolderOpenIcon}
+        title="Document Categories"
+        subtitle="Organize and classify your organizational records"
+        actions={
           <button className="btn-primary" onClick={() => setIsCreating(true)}>
             <HugeiconsIcon icon={Add02Icon} size={16} />
             New Category
           </button>
-        </div>
-      </div>
+        }
+      />
 
-      {/* Toolbar */}
       <div className="flex items-center justify-between mb-8">
         <div className="relative w-80 group">
           <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary transition-colors">
@@ -162,21 +124,14 @@ const Categories = () => {
           />
           <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-bold text-gray-300 border border-gray-200 px-1.5 py-0.5 rounded-md">/</span>
         </div>
-        <div className="flex items-center gap-2">
-           <span className="text-sm text-gray-400 font-medium">Displaying {filteredCategories.length} folders</span>
-        </div>
       </div>
 
       {loading ? (
-        <div className="flex-1 flex items-center justify-center p-20">
-          <div className="w-8 h-8 border-2 border-primary/20 border-t-primary rounded-full animate-spin"></div>
-        </div>
+        <LoadingSpinner />
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {/* Categories Grid */}
           {filteredCategories.map((cat) => {
             const docCount = getDocCountForCategory(cat.id);
-            // Extract the base color class (e.g., 'bg-blue-50')
             const baseColorClass = cat.color.split(' ')[0] || 'bg-gray-50';
             const textColorClass = cat.color.split(' ')[1] || 'text-gray-600';
 
@@ -189,7 +144,6 @@ const Categories = () => {
                   <button 
                     onClick={(e) => { e.stopPropagation(); handleDeleteCategory(cat.id, docCount); }}
                     className="p-1 text-gray-300 hover:text-red-500 transition-colors z-10"
-                    title={docCount > 0 ? "Cannot delete category with documents" : "Delete category"}
                   >
                     <HugeiconsIcon icon={Delete02Icon} size={18} />
                   </button>
@@ -206,17 +160,11 @@ const Categories = () => {
                 
                 <div className="pt-4 border-t border-gray-50 flex items-center justify-between">
                   <span className="text-xs text-gray-400 italic">Updated {getTimeAgo(cat.updatedAt)}</span>
-                  {docCount > 0 && (
-                    <div className="flex -space-x-2">
-                      <img src={`https://ui-avatars.com/api/?name=User+${cat.id}&background=random`} className="w-6 h-6 rounded-full border-2 border-white" alt="user" />
-                    </div>
-                  )}
                 </div>
               </div>
             );
           })}
 
-          {/* Create New Card trigger */}
           <div 
             onClick={() => setIsCreating(true)}
             className="border-2 border-dashed border-gray-200 rounded-large p-6 flex flex-col items-center justify-center text-center hover:bg-gray-50 hover:border-primary/50 transition-all cursor-pointer group min-h-[200px]"
@@ -229,7 +177,6 @@ const Categories = () => {
         </div>
       )}
 
-      {/* Creation Modal Overlay */}
       {isCreating && (
         <div className="absolute inset-0 bg-gray-900/20 backdrop-blur-sm flex items-center justify-center z-50 animate-in fade-in duration-200">
           <div className="bg-white rounded-large shadow-lg w-full max-w-md p-6 animate-in zoom-in-95 duration-200">
