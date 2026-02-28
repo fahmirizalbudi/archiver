@@ -11,6 +11,10 @@ import { Link } from 'react-router-dom';
 import PageHeader from '../../components/UI/PageHeader';
 import StatCard from '../../components/UI/StatCard';
 
+/**
+ * System overview dashboard page.
+ * @returns Dashboard view with metrics and recent document activity.
+ */
 const Dashboard = () => {
   const [recentDocs, setRecentDocs] = useState<ArchivedDocument[]>([]);
   const [totalCount, setTotalCount] = useState(0);
@@ -105,9 +109,9 @@ const Dashboard = () => {
              <table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="bg-gray-50/30">
-                    <th className="px-6 py-3 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Filename</th>
-                    <th className="px-6 py-3 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Size</th>
-                    <th className="px-6 py-3 text-[10px] font-bold text-gray-400 uppercase tracking-widest text-right">Date</th>
+                    <th className="px-6 py-3 text-[10px] font-extrabold text-gray-400 uppercase tracking-[0.05em]">Filename</th>
+                    <th className="px-6 py-3 text-[10px] font-extrabold text-gray-400 uppercase tracking-[0.05em]">Size</th>
+                    <th className="px-6 py-3 text-[10px] font-extrabold text-gray-400 uppercase tracking-[0.05em] text-right">Date</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-50">

@@ -1,15 +1,41 @@
 import { HugeiconsIcon } from '@hugeicons/react';
 import type { ReactNode } from 'react';
 
-interface EmptyStateProps {
+/**
+ * Configuration properties for the EmptyState component.
+ */
+export interface EmptyStateProps {
+  /**
+   * Icon data object from the icon library.
+   */
   icon: any;
+  /**
+   * Title text for the empty state.
+   */
   title: string;
+  /**
+   * Descriptive text explaining the empty state.
+   */
   description: string;
+  /**
+   * Optional action button or element.
+   */
   action?: ReactNode;
+  /**
+   * Optional additional CSS classes.
+   */
   className?: string;
+  /**
+   * Optional click handler for the entire container.
+   */
   onClick?: () => void;
 }
 
+/**
+ * Standardized empty state and placeholder component.
+ * @param props - Component properties.
+ * @returns A centered container with icon and message.
+ */
 const EmptyState = ({ icon, title, description, action, className = "", onClick }: EmptyStateProps) => {
   return (
     <div 

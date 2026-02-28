@@ -12,6 +12,10 @@ import PageHeader from '../../components/UI/PageHeader';
 import LoadingSpinner from '../../components/UI/LoadingSpinner';
 import EmptyState from '../../components/UI/EmptyState';
 
+/**
+ * Main document repository management page.
+ * @returns Document repository view with search and management capabilities.
+ */
 const Documents = () => {
   const [documents, setDocuments] = useState<ArchivedDocument[]>([]);
   const [loading, setLoading] = useState(true);

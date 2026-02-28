@@ -10,6 +10,10 @@ import {
   AlertCircleIcon
 } from '@hugeicons/core-free-icons';
 
+/**
+ * User authentication login page.
+ * @returns Login interface with email/password authentication form.
+ */
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -37,7 +41,6 @@ const Login = () => {
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-surface p-6 font-sans">
       <div className="w-full max-w-md">
-        {/* Logo */}
         <div className="flex flex-col items-center mb-10">
           <div className="bg-primary p-3 rounded-2xl mb-4 shadow-lg shadow-primary/20">
             <img src="/logo.svg" alt="Archiver Logo" className="w-10 h-10 brightness-0 invert" />
@@ -46,7 +49,6 @@ const Login = () => {
           <p className="text-gray-400 mt-2 font-medium">Secure Document Management System</p>
         </div>
 
-        {/* Login Card */}
         <div className="bg-white p-8 rounded-large border border-gray-100 shadow-xl shadow-gray-200/50">
           <h2 className="text-xl font-bold text-gray-900 mb-6">Sign in to your account</h2>
 
@@ -69,7 +71,7 @@ const Login = () => {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-gray-50 border border-gray-200 rounded-base py-3 pl-12 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                  className="w-full bg-gray-50 border border-gray-200 rounded-base py-3 pl-12 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium"
                   placeholder="name@company.com"
                 />
               </div>
@@ -89,7 +91,7 @@ const Login = () => {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-gray-50 border border-gray-200 rounded-base py-3 pl-12 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                  className="w-full bg-gray-50 border border-gray-200 rounded-base py-3 pl-12 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium"
                   placeholder="••••••••"
                 />
                 <button
@@ -123,7 +125,7 @@ const Login = () => {
 
         <p className="mt-8 text-center text-sm text-gray-400 font-medium">
           Confidential access restricted to authorized personnel only. 
-          <br />By signing in, you agree to our <a href="#" className="underline decoration-gray-300 hover:text-gray-600">Archival Policies</a>.
+          <br />By signing in, you agree to our <a href="#" className="underline decoration-gray-300 hover:text-gray-600 transition-all">Archival Policies</a>.
         </p>
       </div>
     </div>

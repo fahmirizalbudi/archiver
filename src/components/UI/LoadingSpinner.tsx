@@ -1,3 +1,7 @@
+/**
+ * Global loading spinner component.
+ * @returns A centered spinner within a full-width container.
+ */
 const LoadingSpinner = () => {
   return (
     <div className="flex-1 flex items-center justify-center p-20">

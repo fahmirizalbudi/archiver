@@ -1,13 +1,33 @@
 import { HugeiconsIcon } from '@hugeicons/react';
 import type { ReactNode } from 'react';
 
-interface PageHeaderProps {
+/**
+ * Configuration properties for the PageHeader component.
+ */
+export interface PageHeaderProps {
+  /**
+   * Icon data object from the icon library.
+   */
   icon: any;
+  /**
+   * Main title text.
+   */
   title: string;
+  /**
+   * Descriptive subtitle text.
+   */
   subtitle: string;
+  /**
+   * Optional action elements to display on the right.
+   */
   actions?: ReactNode;
 }
 
+/**
+ * Consistent page header with icon, title, and action buttons.
+ * @param props - Component properties.
+ * @returns A section with icon-themed title and actions.
+ */
 const PageHeader = ({ icon, title, subtitle, actions }: PageHeaderProps) => {
   return (
     <div className="flex items-center justify-between mb-8">

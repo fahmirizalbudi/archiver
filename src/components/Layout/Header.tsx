@@ -3,10 +3,21 @@ import {
   ArrowLeft01Icon
 } from '@hugeicons/core-free-icons';
 
-interface HeaderProps {
+/**
+ * Configuration properties for the Header component.
+ */
+export interface HeaderProps {
+  /**
+   * Display name of the current active page.
+   */
   pageTitle: string;
 }
 
+/**
+ * Top navigation header component with breadcrumbs and history navigation.
+ * @param props - Component properties.
+ * @returns A header element with navigation controls and title.
+ */
 const Header = ({ pageTitle }: HeaderProps) => {
   return (
     <header className="px-8 py-5 flex items-center justify-between border-b border-gray-100 bg-white shrink-0">

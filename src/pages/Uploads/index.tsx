@@ -11,6 +11,10 @@ import { archiveService, type DocumentCategory } from '../../services/archiveSer
 import PageHeader from '../../components/UI/PageHeader';
 import EmptyState from '../../components/UI/EmptyState';
 
+/**
+ * Page for uploading and ingesting new documents.
+ * @returns Upload interface with file selection and destination category management.
+ */
 const Uploads = () => {
   const [uploading, setUploading] = useState(false);
   const [uploadQueue, setUploadQueue] = useState<{ id: string; name: string; progress: number; status: 'uploading' | 'completed' | 'error' }[]>([]);

@@ -12,6 +12,10 @@ import {
 } from '@hugeicons/core-free-icons';
 import { authService } from '../../services/authService';
 
+/**
+ * Main navigation sidebar component.
+ * @returns A sidebar element with navigation links and user account menu.
+ */
 const Sidebar = () => {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -39,13 +43,11 @@ const Sidebar = () => {
 
   return (
     <aside className="w-[300px] border-r border-gray-100 flex flex-col p-6 shrink-0 bg-white relative">
-      {/* Logo */}
       <div className="flex items-center gap-3.5 mb-8">
         <img src="/logo.svg" alt="Archiver Logo" className="w-8 h-8" />
         <span className="text-xl font-bold tracking-tight text-gray-900">Archiver</span>
       </div>
 
-      {/* Nav */}
       <nav className="flex-1 space-y-1 overflow-y-auto pr-2">
         <NavLink
           to="/"
@@ -102,7 +104,6 @@ const Sidebar = () => {
         </NavLink>
       </nav>
 
-      {/* User with Dropdown */}
       <div className="mt-auto relative" ref={menuRef}>
         {showUserMenu && (
           <div className="absolute bottom-full left-0 w-full mb-2 bg-white border border-gray-100 rounded-large shadow-xl shadow-gray-200/50 py-2 animate-in fade-in slide-in-from-bottom-2 duration-200 z-50">

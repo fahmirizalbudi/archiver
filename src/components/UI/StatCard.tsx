@@ -1,13 +1,36 @@
 import { HugeiconsIcon } from '@hugeicons/react';
 
-interface StatCardProps {
+/**
+ * Configuration properties for the StatCard component.
+ */
+export interface StatCardProps {
+  /**
+   * Icon data object from the icon library.
+   */
   icon: any;
+  /**
+   * CSS class for the icon background.
+   */
   iconBg: string;
+  /**
+   * CSS class for the icon color.
+   */
   iconColor: string;
+  /**
+   * Label text for the statistic.
+   */
   label: string;
+  /**
+   * The numeric or string value to display.
+   */
   value: string | number;
 }
 
+/**
+ * Metric card component for displaying key system statistics.
+ * @param props - Component properties.
+ * @returns A stylized card with icon and metric value.
+ */
 const StatCard = ({ icon, iconBg, iconColor, label, value }: StatCardProps) => {
   return (
     <div className="bg-white p-6 rounded-large border border-gray-100 shadow-sm">

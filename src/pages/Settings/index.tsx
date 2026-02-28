@@ -12,6 +12,10 @@ import { archiveService } from '../../services/archiveService';
 import { cloudinaryConfig } from '../../lib/cloudinary';
 import PageHeader from '../../components/UI/PageHeader';
 
+/**
+ * System configuration and administrative settings page.
+ * @returns Settings view with profile management and database controls.
+ */
 const Settings = () => {
   const [resetting, setResetting] = useState(false);
 
@@ -39,7 +43,6 @@ const Settings = () => {
       />
 
       <div className="space-y-6">
-        {/* Profile Section */}
         <section className="bg-white rounded-large border border-gray-100 shadow-sm overflow-hidden">
           <div className="px-6 py-4 border-b border-gray-50 flex items-center gap-3">
             <HugeiconsIcon icon={UserIcon} size={20} className="text-primary" />
@@ -60,7 +63,6 @@ const Settings = () => {
           </div>
         </section>
 
-        {/* Cloudinary Integration */}
         <section className="bg-white rounded-large border border-gray-100 shadow-sm overflow-hidden">
           <div className="px-6 py-4 border-b border-gray-50 flex items-center gap-3">
             <HugeiconsIcon icon={CloudIcon} size={20} className="text-blue-500" />
@@ -84,7 +86,6 @@ const Settings = () => {
           </div>
         </section>
 
-        {/* Database Control */}
         <section className="bg-white rounded-large border border-gray-100 shadow-sm overflow-hidden border-red-100">
           <div className="px-6 py-4 border-b border-gray-50 flex items-center gap-3 bg-red-50/30">
             <HugeiconsIcon icon={DatabaseIcon} size={20} className="text-red-500" />

@@ -42,7 +42,6 @@ const AppContent = () => {
     return <Navigate to="/" replace />;
   }
 
-  // Simple title mapper based on path
   const getPageTitle = (pathname: string) => {
     switch (pathname) {
       case '/': return 'Dashboard Overview';
@@ -82,6 +81,10 @@ const AppContent = () => {
   );
 };
 
+/**
+ * Main Application component.
+ * @returns The root application structure with routing and authentication context.
+ */
 function App() {
   return (
     <Router>

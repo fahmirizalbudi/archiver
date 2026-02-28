@@ -11,6 +11,10 @@ import { archiveService, type DocumentCategory, type ArchivedDocument } from '..
 import PageHeader from '../../components/UI/PageHeader';
 import LoadingSpinner from '../../components/UI/LoadingSpinner';
 
+/**
+ * Organizational document categories management page.
+ * @returns Categories view with folder grid and creation tools.
+ */
 const Categories = () => {
   const [categories, setCategories] = useState<DocumentCategory[]>([]);
   const [documents, setDocuments] = useState<ArchivedDocument[]>([]);
