@@ -76,16 +76,6 @@ const Sidebar = () => {
           <span className="text-[0.9375rem] font-medium">Quick Upload</span>
         </NavLink>
 
-        <NavLink
-          to="/archive"
-          className={({ isActive }) =>
-            `sidebar-item ${isActive ? 'sidebar-item-active' : 'text-gray-500 hover:bg-gray-50 hover:border-gray-50'}`
-          }
-        >
-          <HugeiconsIcon icon={ArchiveIcon} size={20} />
-          <span className="text-[0.9375rem] font-medium">Long-term Archive</span>
-        </NavLink>
-
         <div className="pt-6 pb-2">
           <div className="h-px bg-gray-100 w-full mb-6"></div>
         </div>
@@ -99,16 +89,6 @@ const Sidebar = () => {
           <HugeiconsIcon icon={Settings01Icon} size={20} />
           <span className="text-[0.9375rem] font-medium">Settings</span>
         </NavLink>
-
-        <NavLink
-          to="/security"
-          className={({ isActive }) =>
-            `sidebar-item ${isActive ? 'sidebar-item-active' : 'text-gray-500 hover:bg-gray-50 hover:border-gray-50'}`
-          }
-        >
-          <HugeiconsIcon icon={Shield01Icon} size={20} />
-          <span className="text-[0.9375rem] font-medium">Access Control</span>
-        </NavLink>
       </nav>
 
       {/* User */}
@@ -116,7 +96,6 @@ const Sidebar = () => {
         <img src="https://ui-avatars.com/api/?name=Vincz+Da+Alonso&background=FF5C35&color=fff" alt="User" className="w-10 h-10 rounded-full object-cover" />
         <div className="flex-1 min-w-0">
           <p className="text-sm font-semibold truncate">Vincz Da Alonso</p>
-          <p className="text-xs text-gray-400 truncate">Admin Access</p>
         </div>
         <HugeiconsIcon icon={ArrowUpDownIcon} size={16} className="text-gray-400" />
       </div>

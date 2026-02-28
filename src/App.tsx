@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard';
 import Documents from './pages/Documents';
 import Uploads from './pages/Uploads';
 import Categories from './pages/Categories';
+import Settings from './pages/Settings';
 
 const AppContent = () => {
   const location = useLocation();
@@ -33,9 +34,8 @@ const AppContent = () => {
           <Route path="/documents" element={<Documents />} />
           <Route path="/categories" element={<Categories />} />
           <Route path="/uploads" element={<Uploads />} />
+          <Route path="/settings" element={<Settings />} />
           {/* Fallback views for demo */}
-          <Route path="/archive" element={<div className="p-8 text-gray-400">Archive View (In Development)</div>} />
-          <Route path="/settings" element={<div className="p-8 text-gray-400">Settings View (In Development)</div>} />
           <Route path="/security" element={<div className="p-8 text-gray-400">Access Control View (In Development)</div>} />
         </Routes>
       </main>
