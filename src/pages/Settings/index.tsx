@@ -10,6 +10,7 @@ import {
 } from '@hugeicons/core-free-icons';
 import { archiveService } from '../../services/archiveService';
 import { cloudinaryConfig } from '../../lib/cloudinary';
+import PageHeader from '../../components/UI/PageHeader';
 
 const Settings = () => {
   const [resetting, setResetting] = useState(false);
@@ -31,19 +32,11 @@ const Settings = () => {
 
   return (
     <div className="flex-1 overflow-y-auto p-8 bg-surface">
-      <div className="flex items-center justify-between mb-8">
-        <div className="flex items-center gap-4">
-          <div className="w-16 h-16 bg-primary-light rounded-large flex items-center justify-center">
-            <div className="bg-primary-soft p-2 rounded-base text-primary flex items-center justify-center">
-              <HugeiconsIcon icon={Settings01Icon} size={32} />
-            </div>
-          </div>
-          <div>
-            <h1 className="text-2xl font-bold">System Settings</h1>
-            <p className="text-gray-400 text-sm mt-0.5">Manage your administrative profile and core system integrations</p>
-          </div>
-        </div>
-      </div>
+      <PageHeader 
+        icon={Settings01Icon}
+        title="System Settings"
+        subtitle="Manage your administrative profile and core system integrations"
+      />
 
       <div className="space-y-6">
         {/* Profile Section */}
