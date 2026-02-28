@@ -98,9 +98,16 @@ const Uploads = () => {
   return (
     <div className="flex-1 overflow-y-auto p-8">
       <div className="flex items-center justify-between mb-8">
-        <div>
-          <h1 className="text-2xl font-bold">Document Upload</h1>
-          <p className="text-gray-400 text-sm mt-0.5">Securely ingest new records into the archive system</p>
+        <div className="flex items-center gap-4">
+          <div className="w-16 h-16 bg-primary-light rounded-large flex items-center justify-center">
+            <div className="bg-primary-soft p-2 rounded-base text-primary flex items-center justify-center">
+              <HugeiconsIcon icon={CloudUploadIcon} size={32} />
+            </div>
+          </div>
+          <div>
+            <h1 className="text-2xl font-bold">Document Upload</h1>
+            <p className="text-gray-400 text-sm mt-0.5">Securely ingest new records into the archive system</p>
+          </div>
         </div>
         <div className="flex items-center gap-3">
           <button className="btn-secondary" onClick={() => setUploadQueue([])}>
@@ -126,15 +133,15 @@ const Uploads = () => {
         <div className="lg:col-span-2 space-y-6">
           {/* Upload Area */}
           <div 
-            className="bg-white p-12 rounded-large border-2 border-dashed border-gray-200 flex flex-col items-center justify-center text-center hover:border-primary transition-colors cursor-pointer group"
+            className="bg-white p-20 rounded-large border border-gray-100 shadow-sm flex flex-col items-center justify-center text-center hover:border-primary/30 transition-all cursor-pointer group"
             onClick={() => fileInputRef.current?.click()}
           >
-            <div className="w-20 h-20 bg-primary-light text-primary rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-              <HugeiconsIcon icon={CloudUploadIcon} size={40} />
+            <div className="w-16 h-16 bg-gray-50 text-gray-300 rounded-full flex items-center justify-center mb-4 group-hover:bg-primary-light group-hover:text-primary transition-colors">
+              <HugeiconsIcon icon={CloudUploadIcon} size={32} />
             </div>
-            <h2 className="text-xl font-bold text-gray-900">Drag and drop documents here</h2>
-            <p className="text-gray-400 mt-2 max-w-sm">Support for PDF, DOCX, XLSX and high-resolution images up to 50MB per file.</p>
-            <button className="btn-primary mt-8 px-8" disabled={uploading}>
+            <h3 className="text-gray-900 font-bold">Drag and drop documents here</h3>
+            <p className="text-gray-400 text-sm mt-1 max-w-xs">Support for PDF, DOCX, XLSX and high-resolution images up to 50MB per file.</p>
+            <button className="btn-primary mt-6 px-8" disabled={uploading}>
               {uploading ? 'Uploading...' : 'Browse Files'}
             </button>
           </div>

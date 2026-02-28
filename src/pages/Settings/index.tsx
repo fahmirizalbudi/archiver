@@ -5,7 +5,8 @@ import {
   DatabaseIcon,
   Delete02Icon,
   UserIcon,
-  InformationCircleIcon
+  InformationCircleIcon,
+  Settings01Icon
 } from '@hugeicons/core-free-icons';
 import { archiveService } from '../../services/archiveService';
 import { cloudinaryConfig } from '../../lib/cloudinary';
@@ -30,9 +31,18 @@ const Settings = () => {
 
   return (
     <div className="flex-1 overflow-y-auto p-8 bg-surface">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold">System Settings</h1>
-        <p className="text-gray-400 text-sm mt-0.5">Manage your administrative profile and core system integrations</p>
+      <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center gap-4">
+          <div className="w-16 h-16 bg-primary-light rounded-large flex items-center justify-center">
+            <div className="bg-primary-soft p-2 rounded-base text-primary flex items-center justify-center">
+              <HugeiconsIcon icon={Settings01Icon} size={32} />
+            </div>
+          </div>
+          <div>
+            <h1 className="text-2xl font-bold">System Settings</h1>
+            <p className="text-gray-400 text-sm mt-0.5">Manage your administrative profile and core system integrations</p>
+          </div>
+        </div>
       </div>
 
       <div className="space-y-6">

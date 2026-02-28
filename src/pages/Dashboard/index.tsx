@@ -5,7 +5,8 @@ import {
   FolderOpenIcon,
   CloudUploadIcon,
   UserGroupIcon,
-  Download01Icon
+  Download01Icon,
+  GridViewIcon
 } from '@hugeicons/core-free-icons';
 import { archiveService, type ArchivedDocument } from '../../services/archiveService';
 import { Link } from 'react-router-dom';
@@ -61,9 +62,16 @@ const Dashboard = () => {
   return (
     <div className="flex-1 overflow-y-auto p-8">
       <div className="flex items-center justify-between mb-8">
-        <div>
-          <h1 className="text-2xl font-bold">System Overview</h1>
-          <p className="text-gray-400 text-sm mt-0.5">Track your archival metrics and recent uploads</p>
+        <div className="flex items-center gap-4">
+          <div className="w-16 h-16 bg-primary-light rounded-large flex items-center justify-center">
+            <div className="bg-primary-soft p-2 rounded-base text-primary flex items-center justify-center">
+              <HugeiconsIcon icon={GridViewIcon} size={32} />
+            </div>
+          </div>
+          <div>
+            <h1 className="text-2xl font-bold">System Overview</h1>
+            <p className="text-gray-400 text-sm mt-0.5">Track your archival metrics and recent uploads</p>
+          </div>
         </div>
         <div className="flex items-center gap-3">
           <button className="btn-secondary">
@@ -125,13 +133,15 @@ const Dashboard = () => {
             <h2 className="font-bold text-gray-900">Recent Activity</h2>
             <Link to="/documents" className="text-primary text-sm font-bold">View All</Link>
           </div>
-          <div className="p-0 min-h-[200px] flex flex-col">
+          <div className="p-0">
              {loading ? (
-               <div className="flex-1 flex items-center justify-center">
+               <div className="h-64 flex items-center justify-center">
                  <div className="w-8 h-8 border-2 border-primary/20 border-t-primary rounded-full animate-spin"></div>
                </div>
              ) : recentDocs.length === 0 ? (
-               <div className="p-12 text-center text-gray-400 text-sm">No recent activity found.</div>
+               <div className="h-64 flex flex-col items-center justify-center text-center px-6">
+                 <p className="text-gray-400 text-sm font-medium">No recent activity found.</p>
+               </div>
              ) : (
                <table className="w-full text-left border-collapse">
                   <thead>

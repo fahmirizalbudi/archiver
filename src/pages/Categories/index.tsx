@@ -149,7 +149,7 @@ const Categories = () => {
 
       {/* Toolbar */}
       <div className="flex items-center justify-between mb-8">
-        <div className="relative w-96 group">
+        <div className="relative w-80 group">
           <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary transition-colors">
             <HugeiconsIcon icon={Search01Icon} size={16} />
           </div>
@@ -158,8 +158,9 @@ const Categories = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search categories..."
-            className="w-full bg-white border border-gray-100 rounded-base py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:ring-1 focus:ring-primary shadow-sm"
+            className="w-full bg-gray-50 border border-transparent rounded-base py-2 pl-10 pr-10 text-sm focus:outline-none focus:bg-white focus:border-primary/20 transition-all"
           />
+          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-bold text-gray-300 border border-gray-200 px-1.5 py-0.5 rounded-md">/</span>
         </div>
         <div className="flex items-center gap-2">
            <span className="text-sm text-gray-400 font-medium">Displaying {filteredCategories.length} folders</span>
