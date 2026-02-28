@@ -16,14 +16,8 @@ const Sidebar = () => {
   return (
     <aside className="w-[300px] border-r border-gray-100 flex flex-col p-6 shrink-0 bg-white">
       {/* Logo */}
-      <div className="flex items-center gap-2 mb-8">
-        <div className="bg-primary p-1.5 rounded-lg">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="white" />
-            <path d="M2 17L12 22L22 17" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M2 12L12 17L22 12" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </div>
+      <div className="flex items-center gap-3.5 mb-8">
+        <img src="/logo.svg" alt="Archiver Logo" className="w-8 h-8" />
         <span className="text-xl font-bold tracking-tight">Archiver</span>
       </div>
 
