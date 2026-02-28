@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+/template/*
+PLAN.md
+GEMINI.md
+.env
