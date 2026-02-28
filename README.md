@@ -1,73 +1,93 @@
-# React + TypeScript + Vite
+<div align="center">
+<a href="https://github.com/fahmirizalbudi/archiver" target="blank">
+<img src="public/logo.svg" width="160" alt="Logo" />
+</a>
+<br/>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<br />
+<br />
 
-Currently, two official plugins are available:
+![](https://img.shields.io/badge/react-20232a?style=for-the-badge&logo=react&logoColor=61DAFB)
+![](https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![](https://img.shields.io/badge/firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)
+![](https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+![](https://img.shields.io/badge/vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+</div>
 
-## React Compiler
+<br />
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Archiver
 
-## Expanding the ESLint configuration
+Archiver is a professional document management system designed for secure organizational record keeping. Developed with React, TypeScript, and Firebase, the platform ensures real-time data synchronization, secure authentication, and efficient cloud storage integration for a reliable user experience.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Preview
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+<img src="image.png" />
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Features
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **Secure Authentication:** Restricted system access implemented via Firebase Authentication.
+- **Real-time Repository:** Instant synchronization of document metadata through Firebase Realtime Database.
+- **Cloud Integration:** High-performance file storage and delivery powered by Cloudinary.
+- **Document Categorization:** Structured system for organizing files into manageable organizational units.
+- **System Dashboard:** Unified interface for monitoring archival metrics and recent system activity.
+- **Responsive Architecture:** Optimized interface for seamless use across different device environments.
+- **Type Safety:** Maintainable and robust codebase ensured through strict TypeScript implementation.
+- **Data Persistence:** Reliable storage of document records and category structures.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Tech Stack
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **React**: A JavaScript library for building modern user interfaces.
+- **TypeScript**: A strongly typed programming language that builds on JavaScript.
+- **Firebase**: Backend-as-a-service platform for database and authentication services.
+- **Cloudinary**: Cloud-based image and video management service.
+- **Tailwind CSS**: A utility-first CSS framework for rapid UI development.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Getting Started
+
+Follow these instructions to set up a local development environment.
+
+### Prerequisites
+
+- **Node.js** and **NPM**.
+- **Firebase** project and **Cloudinary** account.
+
+## Installation
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/fahmirizalbudi/archiver.git
+   cd archiver
+   ```
+
+2. **Install dependencies:**
+
+   ```bash
+   npm install
+   ```
+
+3. **Configure Environment Variables:**
+
+   Create a `.env` file in the root directory and configure your Firebase and Cloudinary credentials as specified in the configuration files.
+
+4. **Start the development server:**
+
+   ```bash
+   npm run dev
+   ```
+
+## Usage
+
+### Execution Commands
+
+- **Development:** `npm run dev`
+- **Build:** `npm run build`
+- **Preview:** `npm run preview`
+
+The application will be accessible at [http://localhost:5173](http://localhost:5173).
+
+## License
+
+All rights reserved. This project is intended for educational purposes only and may not be distributed or utilized commercially without explicit permission.
