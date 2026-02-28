@@ -39,9 +39,7 @@ const Sidebar = () => {
         <NavLink
           to="/"
           className={({ isActive }) =>
-            `flex items-center gap-3 px-3 py-2.5 rounded-base transition-colors ${
-              isActive ? 'sidebar-item-active' : 'text-gray-500 hover:bg-gray-50'
-            }`
+            `sidebar-item ${isActive ? 'sidebar-item-active' : 'text-gray-500 hover:bg-gray-50 hover:border-gray-50'}`
           }
         >
           <HugeiconsIcon icon={GridViewIcon} size={20} />
@@ -51,9 +49,7 @@ const Sidebar = () => {
         <NavLink
           to="/documents"
           className={({ isActive }) =>
-            `flex items-center gap-3 px-3 py-2.5 rounded-base transition-colors ${
-              isActive ? 'sidebar-item-active' : 'text-gray-500 hover:bg-gray-50'
-            }`
+            `sidebar-item ${isActive ? 'sidebar-item-active' : 'text-gray-500 hover:bg-gray-50 hover:border-gray-50'}`
           }
         >
           <HugeiconsIcon icon={DocumentValidationIcon} size={20} />
@@ -63,9 +59,7 @@ const Sidebar = () => {
         <NavLink
           to="/categories"
           className={({ isActive }) =>
-            `flex items-center gap-3 px-3 py-2.5 rounded-base transition-colors ${
-              isActive ? 'sidebar-item-active' : 'text-gray-500 hover:bg-gray-50'
-            }`
+            `sidebar-item ${isActive ? 'sidebar-item-active' : 'text-gray-500 hover:bg-gray-50 hover:border-gray-50'}`
           }
         >
           <HugeiconsIcon icon={FolderOpenIcon} size={20} />
@@ -75,9 +69,7 @@ const Sidebar = () => {
         <NavLink
           to="/uploads"
           className={({ isActive }) =>
-            `flex items-center gap-3 px-3 py-2.5 rounded-base transition-colors ${
-              isActive ? 'sidebar-item-active' : 'text-gray-500 hover:bg-gray-50'
-            }`
+            `sidebar-item ${isActive ? 'sidebar-item-active' : 'text-gray-500 hover:bg-gray-50 hover:border-gray-50'}`
           }
         >
           <HugeiconsIcon icon={CloudUploadIcon} size={20} />
@@ -87,9 +79,7 @@ const Sidebar = () => {
         <NavLink
           to="/archive"
           className={({ isActive }) =>
-            `flex items-center gap-3 px-3 py-2.5 rounded-base transition-colors ${
-              isActive ? 'sidebar-item-active' : 'text-gray-500 hover:bg-gray-50'
-            }`
+            `sidebar-item ${isActive ? 'sidebar-item-active' : 'text-gray-500 hover:bg-gray-50 hover:border-gray-50'}`
           }
         >
           <HugeiconsIcon icon={ArchiveIcon} size={20} />
@@ -103,9 +93,7 @@ const Sidebar = () => {
         <NavLink
           to="/settings"
           className={({ isActive }) =>
-            `flex items-center gap-3 px-3 py-2.5 rounded-base transition-colors ${
-              isActive ? 'sidebar-item-active' : 'text-gray-500 hover:bg-gray-50'
-            }`
+            `sidebar-item ${isActive ? 'sidebar-item-active' : 'text-gray-500 hover:bg-gray-50 hover:border-gray-50'}`
           }
         >
           <HugeiconsIcon icon={Settings01Icon} size={20} />
@@ -115,9 +103,7 @@ const Sidebar = () => {
         <NavLink
           to="/security"
           className={({ isActive }) =>
-            `flex items-center gap-3 px-3 py-2.5 rounded-base transition-colors ${
-              isActive ? 'sidebar-item-active' : 'text-gray-500 hover:bg-gray-50'
-            }`
+            `sidebar-item ${isActive ? 'sidebar-item-active' : 'text-gray-500 hover:bg-gray-50 hover:border-gray-50'}`
           }
         >
           <HugeiconsIcon icon={Shield01Icon} size={20} />
